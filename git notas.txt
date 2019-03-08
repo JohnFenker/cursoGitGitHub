@@ -1,0 +1,172 @@
+c31. hay dos maneras de clonar.
+1 por https
+2 por ssh
+
+si no soy dueño y no uqiero clonar si solo hacerle modifcaciones
+entonces el hecho deque gh ponga todo publico no significa que nuestros proyectos seranc 
+contaminados
+por que los otros tomar nuestro proyecto a modo de fork y puestos en su propio github
+y este sera visto desde mi por mi y otros que vean las 
+apotes a el proyecto
+
+si quereos que se vea en el original hacemos un pull request
+
+c32
+añadir un llava ssh a GH
+las llaves son generadas desde terminal 
+ssh-keygen -t rsa -b 4096 -C "tu@mail.com"
+esto crea una llave en lhome del usuario actual --> /.ssh/id_rsa
+si ya ecxiste otro .ssh/id_rsa les pregunta si queremos sobreescribir
+luego con pbcopy < ~/.ssh/id_rsa.pub
+copiamos la llave publica al portapapeles
+y en GH en Personal settings -> SSH and GPG keys
+ahi estan las llaves que tengamos usando en otros proyectos 
+new key, ponemos title y crontol + v en key
+
+c33
+git remote
+agregamos un erpo remoto a nuestro repo local
+git remote add origin git@ssh or https
+
+quitar repo remoto
+git remote remove origin dir....osea el name del repo puesto cuando agregamos el repo externo
+y con git remote solo, nos informa el name del repo remoto si lo tenemos
+esto nos dara como resultado tener esa direccion coo remato en dos direcciones como fetch y como push
+
+c34
+trayendo cambios desde el remoto con dos maneras
+pull y fetch
+
+con fetch podemos traer repos y tendramos una nueva rama DISPONIBLE pero NO mesclada.
+osea no las mescla con el master nuestro
+con 
+git fetch origin master
+asea trae del repo "origin" la rama con nombre "master"
+
+con git merge origin/master {--allow-unrelated-histories}
+esto es para arreglar la fusion de dos proyectos que comenzaron sus vidas de forma 
+independiente
+arregla el anacronismo del proyecto
+
+mesclar conmigo la rama origin/master cuyo nombre fue formado del repo y la rama traida
+esta nueva rama disponible es navegable con checkout
+
+otra manera de traer cambios del repo ademas de fetch->merge
+otra es los des al mismo tiempo
+
+con git pull origin master
+pero con git push origin master --tags 
+podemos mandar todas las ramas que tengaoms que no sean master
+y los tag 's tambein
+las ramas con git push origin nameRama
+
+con git branch -a lista todas las ramas locales y traidas remotamente disponibles que no fueron mergeadas
+ y con git checkout origin/master
+te hace un cd a esa rama
+y ves los files con ls
+
+c 35 explorando github
+webhooks agregar serviios para un auto deploy
+
+c37 GitHub Projects, el SCRUM de GitHub
+
+cada feature grande del repo tiene su proyecto
+
+tendremos un boear como trello
+as notas las podemos convertir en issus's
+ 
+c38
+pull request enviar cambios aotro
+issua enviar opiniones de error
+
+en / raiz creamos un fine new con name issue_template.md
+y ahi usamos los ##, etc etcetc de marckdown para crear un aespecie de plantilla sensilla para cunado hagamos los issue estilicemos algo 
+las preguntas criticas que hacemos
+
+c39
+
+una plantilla para un pull request
+
+nadie puede participar en la rama master
+para q alguien le ponga codigo a master
+primero tiene que crear una rama
+y solicitar un cambio un pull request 
+ejemeplo
+crearia la rama responsive design
+y esa rama solicitaria request que se mescle con la rama master
+
+para esto tuene que pasar por el review de demas personas
+o de mi mismo
+ese es el flujo de trabajo
+
+plantilla con pull_request_template.md
+
+- [ ] algo blablabal
+
+c40 .gitignore (Ignorando archivos no deseados)
+
+se crea un .gitignore
+se pone dir o files por cada fila
+y para subirlo agregamos add -A y commiteamos
+y pusheamos
+si salta error hacemos un pull de lo que tengamos arriba
+y hacemos push de nuevo
+
+c41 Pull Request (Colabora a proyectos externos)
+hacemos un commit de los cambios que tengamos 
+si tiene proteccion necesitamos hacer un pull request
+eso es crear una rama y hacer el pull request hacer una solicitud
+
+esto se hace para que alguien mas la revice y de su aprovacion
+nosotros que somos los que estamos mandando la solicutud de pullrequest podemos elegir quien es el que revise nuestro aporte
+si no hay nadie o por las dudas siempre poner un assignees par aque tenga la responsibilidad de controlar eso.
+ponemos labels
+proyectos 
+milestone
+
+le damos clic en crear nuevo request
+
+nos manda al dashboard de pulles
+
+entonce ahora alguien deberia revisarlo para poder hacer el merge del aporte nuestro
+
+pull desde terminal
+
+creas una rama y adelntro haces los cambios que quieras aportarle que le vayas a agregar
+y luego git add . 
+git commit
+entones le hacemos un push al remoto master -> git push origin nuevaRama
+ESTO provoca la creacion de un pull request que completamos con los datos en nuestro GITHUB y agregamos un revisor y un assignees
+a esta persona le llega un mail con el trabajo pedido
+este lo vera y podra elegir aprovar rechazar etc con comentarios
+
+ahi se activa la caja de para hacer merge click y listo
+
+c 42
+
+Issues y Milestone
+
+agregar el el dashboar label, milestones y asignarlos en los nuevos issues
+c45
+compramos como cualquiero otra cosa
+vamos al dashboard
+y ponenmos el custon domain en invie.website
+debemos crear un file CNAME en el MASTER del proyecto
+y dentro del file poner la direccion nueva del site
+invie.website
+
+commitearlo y pushearlo y listo
+
+para esto si esta protegido 
+crear file y hacerle pull request para que lo revisen y lo mergeen y listo en GITHUB
+
+En NAMECHEAP
+en el domain list configuaciones
+add new record
+a record @ 192.30.252.153 automatic
+
+a record @ 192.30.252.154 automatic
+
+CNAME Record www johnfenker.github.io. automatic
+
+c46 

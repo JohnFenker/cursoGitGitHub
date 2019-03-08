@@ -1,0 +1,152 @@
+tags ligeros y anotados
+tenemos los distintos commits de nuestr proyecto 
+pero si queremos tag de a etapas versiones podemos tag earlos
+hay dos tipos de etiquetas
+ligeras y anotadas
+una ligera es simplemente un tag con un string como bandera
+
+git tag 0.5
+
+una anotada es anotado por que tiene un mensaje y necesita: una referencia, el commit donde sera platada la referencia un sha1
+git tag -a 0.5 -m 'anotacion del tag'
+
+como tercer manera podemos tagear commit que no esten en la caberza actualmente, averiguar el sha1 del que desee
+git log
+ 
+tag ligera pasado
+
+git tag 0.2 jsdadkahdjkajkdhjasjhakjdhkjahsjhajsdjadhajkshdjahjkshdkja
+
+Renombrando tags
+
+git tag -f -a referencia -m 'si quiero poner una anotacion' +sha1
+
+Eliminando tags
+git tag -d referencia
+
+16 . GIT LOG
+LOG ES UN COMANDO PERSONALIZABLE
+git log --oneline
+pone los commits en lista resumida. sha1Resumido y mensaje del commit
+git log --oneline --graph
+muestra las ramas muestra las lineas bifurcadas con un asterisco por cada commit a la rema que pertenece
+
+mostrar los ultimos n commits con git log -1
+
+17 . Diferencias entre commits GIT DIFF
+git diff con un solo sha1 MUESTRA LO QUE SE CAMBIO O AGREGO EN ESE COMMIT
+
+TENER EN CUENTA CUANDO SE HACE EL DIFF ENTRE DOS COMMITS. Mirar las fechas quien es anteriores a quien ara entender bien los rojos y verdes
+un nada contra algo --> verde
+
+lo que hace es poner el 1 commit luego aplica el 2° commit y muestra el resultado del merged
+
+18. Volver en el tiempo RESET
+
+hay 3 tipos de regreo en el tiempo
+reset --soft --mixed --hard
+
+soft --> nos paramos en el commit que queremos estar como cabezera
+luego invocamos git reset --soft +SHA1 
+ELIMINA LOS COMMITS DE ARRIBA Y DEJA TODOS LOS FILES EN GIT ADD LISTOS PARA COMMITEAR
+TAL VEZ ESTO SIRVE MAS PARA CAMBIAR EL NOMBRE DE LOS COMMITS
+
+19. RETROCEDOR DEJANDO LAS COSAS EN EL WORKING DIRECTORY GIT RESET --MIXED
+esto es para sacarlos del ADD y hacer modificaciones nuevas de codigo y luego hacer ADD Y COMMIT
+
+20. GIT RESET --HARD 
+retrocedemos en el tiempo y aun estan los cambio aunque sea en WD con mixed. Los cambios estan ahi esperando ADD.
+PREVIO RETOQUE.
+LOS cambios se eliminan de la linea del tiempo (commits) ahora que hacemos con los files en el campo de trabajo
+los bajamos de commit -m "", los bajamos del ADD o lo eliminamos
+
+hay que tener cuidado si hacemos reset --hard sobre un commit por que eliminara incluso lo files.
+pero si lo files no estan commiteados en ese commit a resetear o estan sin trackear no pasad nada no lo elimina.
+
+21. agregar en el path la direccion de sublime text y luego electara el exe que encuentre en ese directorio
+
+22. Branch Ramas. Cuanto tenemos un proyecto y queremos hacer agregar, modificar o eliminar funcionalidad.
+comadnos
+crear -> git branch name
+listar -> git branch -l
+eliminar -> git branch -d nameRama
+forzar eliminado de rama pq tiene cambios/commits dentro.
+git branch -D name
+modificar name -> git branch -m [original] [nuevo name]
+
+23 . checkout navegando entre ramas
+
+git checkout ramaName cambia de rama
+git checkout sha1 cambia de commit
+git checkout -b name crea y cd a esa rama
+
+tambien  con git checkout -- file.extend resetea los cambios hechos en ese file y lo saca del pedido de trakeo.
+
+24. cuadno tenemos files que estan en WD o solo en ADD estos se mueven a la rama actual por mas que cambiemos de ramas.
+25. mesclar con rama master
+1 hay que posicionarse en la rama que quiero que resiva los camvios--> master
+git cheackout master
+git merge namerama
+
+lo que puede arreglar de forma facil con fast forward
+
+pero cuadno hay probeas
+usa el metodo recursivo
+mescla de forma recursiva y necesita hacer un commit para acentar esa mescla resursiva
+es como que recordara que cuadno salio dejo master en cierto estado y cuadno vuelve a mergear ya esta distint entonces reursivamente lo junta
+
+
+cambio con conflicto --> por mod las mismas lineas. con cual version te quedas?
+muestra de conflicto.en sublime
+<<<<<<head
+codigo
+codigo
+codigo
+==========
+codigo 
+codigo
+>>>>>>> namerama
+
+arreglamos y/o negociamos
+
+confirmanos el commit que no pudimos hacer por el conflicto.
+
+26 . Sobreescribir el historial de commits
+git rebase: hace prácticamente lo mismo que merge, cambiamos la historia de nuestro proyecto sin crear bifurcaciones del proyecto. 
+Es mejor usar merge
+Usar solo git rebase de manera local.
+
+-i: de manera interactiva, nos abrira el editor que tengamos definido en la configuración de git.
+rebase es para eliminar commit basura o juntar varis en una para que subir y quedar como un bruto jajaja
+
+master --> git rebase namarama
+rabese modifica los sha1's
+
+interactiva
+
+git rebase -i nameRama
+
+poner los comando que queramos 
+cerrar editor
+si se abre otro completar y cerrar.
+
+27. tengo algo para hacer commit pero no puedo hacer commit todavia pero no quiero que se vaya a otroa rama
+stash
+sobre la rama a abandonar ---> git stash
+ahora si nos vamos a otro lado a hacer lo que sea.
+volvermos
+listamos los stash hechos
+git stash list
+eliminar stashes --> git stash drop stash@{numero}
+resusitar estados
+git stash apply
+ese desestashea el ultimo stasheado, pos 0.
+buena practica-> antes de aplicar un estado anterior primero stashear los que hayamos resucitadaos y que sean osteriores al que quermos
+
+git stash apply sha1Stash
+ 
+28 . elegir commits 
+tal ves estas trabajando y commiteando cosas en una rama y resulta que no era para esa rama si no para otro
+entonces necesitan elejir commits y pasarlos a otra rama
+entonce nos paramos en la rama que tenia que ser y desde ahi traemos al commit con
+git cherry-pick sha1
